@@ -1,0 +1,29 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+			
+	<repositories>
+		<repository>
+			<id>log720</id>
+			<url>https://cours.etsmtl.ca/log720/m2</url>
+		</repository>
+	</repositories>	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ca.etsmtl.log720.lab1</groupId>
+	<artifactId>equipe15-log720-A16-lab1</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0</version>
+	
+	<modules>
+		<module>client-voiture</module>
+		<module>client-poste</module>
+		<module>idl</module>
+		<module>serveur-poste</module>
+	</modules>
+</project>
