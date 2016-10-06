@@ -22,7 +22,7 @@ public class InfractionImpl extends InfractionPOA{
 
 	public String _toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return "id= " + this.id + "description= " + this.description + "niveau= " + this.niveau ;
 	}
 
 }

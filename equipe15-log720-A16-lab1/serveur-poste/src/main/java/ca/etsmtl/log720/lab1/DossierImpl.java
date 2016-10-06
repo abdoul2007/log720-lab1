@@ -71,7 +71,8 @@ public class DossierImpl extends DossierPOA{
 	}
 	public String _toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return "id= " + this.id + "nom= " + this.nom + "noPermis= " + 
+		this.noPermis + "noPlaque= " + this.noPlaque + "prenom= " + this.prenom + "niveau= " + this.niveau ;
 	}
 
 }
