@@ -1,8 +1,8 @@
 package ca.etsmtl.log720.lab1;
 
-public class CollectionDossiersImpl extends CollectionDossierPOA{
+public class CollectionInfractionsImpl extends CollectionInfractionPOA{
 
-	public Dossier getDossier(int index) {
+	public Infraction getInfraction(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
