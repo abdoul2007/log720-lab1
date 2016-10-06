@@ -46,10 +46,11 @@ public class DossierImpl extends DossierPOA{
 	public void ajouterReactionAListe(int idReaction) {
 		// TODO Auto-generated method stub
 		int i = 0;
-		while(i <= NB_MAX){
+		int pos = -1;
+		while((i <= NB_MAX) && (pos==-1)){
 			if(listeReaction[i]==0){
-				listeInfraction[i]=idReaction;	
-				break;
+				listeInfraction[i]=idReaction;
+				pos=i;
 			}
 			i++;			
 		}		
@@ -58,10 +59,11 @@ public class DossierImpl extends DossierPOA{
 	public void ajouterInfractionAListe(int idInfraction) {
 		// TODO Auto-generated method stub
 		int i = 0;
-		while(i <= NB_MAX){
+		int pos = -1;
+		while((i <= NB_MAX) && (pos==-1)){
 			if(listeInfraction[i]==0){
 				listeInfraction[i]=idInfraction;	
-				break;
+				pos=i;
 			}
 			i++;			
 		}	
