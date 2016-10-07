@@ -1,19 +1,27 @@
 package ca.etsmtl.log720.lab1.module.voiture;
 
-import java.util.Collection;
+import ca.etsmtl.log720.lab1.BanqueReactionsPOA;
+import ca.etsmtl.log720.lab1.CollectionReaction;
+import ca.etsmtl.log720.lab1.Reaction;
 
-import ca.etsmtl.log720.lab1.bean.Dossier;
+public class BanqueReactionImpl extends BanqueReactionsPOA{
 
-public interface BanqueReaction {
+	public CollectionReaction reactions() {
+		return null;
+	}
 
-	
-	public void ajouterReaction(String Description, int niveau);
-	
-	public Collection<Reaction> trouverReactionParDossier(Dossier dossier);
-	
-	public Reaction trouverReactionParId(int id);
-	
-	public Collection<Reaction> reactions();
+	public void ajouterReaction(String reaction, int gravite) {
+		
+	}
+
+	public CollectionReaction trouverReactionsParDossier(ca.etsmtl.log720.lab1.Dossier myDossier) {
+		return null;
+	}
+
+	public Reaction trouverReactionParId(int idReaction) {
+ 		return null;
+	}
+
 	
 	
 }
