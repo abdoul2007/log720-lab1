@@ -3,7 +3,7 @@ package ca.etsmtl.log720.lab1;
 public class InfractionImpl extends InfractionPOA{
 	private int id;
     private String description;
-    private int niveau;
+    private int niveauGravite;
     
 	public int id() {
 		// TODO Auto-generated method stub
@@ -17,12 +17,12 @@ public class InfractionImpl extends InfractionPOA{
 
 	public int niveau() {
 		// TODO Auto-generated method stub
-		return niveau;
+		return niveauGravite;
 	}
 
 	public String _toString() {
 		// TODO Auto-generated method stub
-		return "id= " + this.id + "description= " + this.description + "niveau= " + this.niveau ;
+		return "id= " + this.id + "description= " + this.description + "niveau= " + this.niveauGravite ;
 	}
 
 }

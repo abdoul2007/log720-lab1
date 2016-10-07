@@ -3,11 +3,12 @@ import java.util.ArrayList;
 
 public class CollectionDossiersImpl extends CollectionDossierPOA{
 	
+	private int size;
 	private ArrayList<DossierImpl> dossier;
 	
 	public CollectionDossiersImpl() {
-		super();
 		this.dossier = new ArrayList<DossierImpl>();
+		this.size = 0;
 	}
 
 	public Dossier getDossier(int index) {
@@ -17,7 +18,7 @@ public class CollectionDossiersImpl extends CollectionDossierPOA{
 
 	public int size() {
 		// TODO Auto-generated method stub
-		return this.dossier.size();
+		return this.size;
 	}
 
 }

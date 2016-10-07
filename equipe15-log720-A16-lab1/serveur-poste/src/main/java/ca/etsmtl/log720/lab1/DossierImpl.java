@@ -7,11 +7,18 @@ public class DossierImpl extends DossierPOA{
     private String noPermis;
     private String noPlaque;
     private String prenom;
-    private int niveau;
+    private int niveauGravite;
     private int[] listeInfraction;
     private int[] listeReaction;
+    
 	
-    public int id() {
+    public DossierImpl(String nom, String prenom, String noPermis, String noPlaque){
+		this.nom = nom;
+		this.noPermis = noPermis;
+		this.noPlaque = noPlaque;
+		this.prenom = prenom;		
+	}
+	public int id() {
 		// TODO Auto-generated method stub
 		return id;
 	}
@@ -33,7 +40,7 @@ public class DossierImpl extends DossierPOA{
 	}
 	public int niveau() {
 		// TODO Auto-generated method stub
-		return niveau;
+		return niveauGravite;
 	}
 	public int[] getListeInfraction() {
 		// TODO Auto-generated method stub
@@ -72,7 +79,7 @@ public class DossierImpl extends DossierPOA{
 	public String _toString() {
 		// TODO Auto-generated method stub
 		return "id= " + this.id + "nom= " + this.nom + "noPermis= " + 
-		this.noPermis + "noPlaque= " + this.noPlaque + "prenom= " + this.prenom + "niveau= " + this.niveau ;
+		this.noPermis + "noPlaque= " + this.noPlaque + "prenom= " + this.prenom + "niveau= " + this.niveauGravite ;
 	}
 
 }
