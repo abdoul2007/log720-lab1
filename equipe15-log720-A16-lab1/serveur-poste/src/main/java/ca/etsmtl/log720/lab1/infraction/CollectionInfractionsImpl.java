@@ -1,6 +1,9 @@
-package ca.etsmtl.log720.lab1;
+package ca.etsmtl.log720.lab1.infraction;
 
 import java.util.ArrayList;
+
+import ca.etsmtl.log720.lab1.CollectionInfractionPOA;
+import ca.etsmtl.log720.lab1.Infraction;
 
 public class CollectionInfractionsImpl extends CollectionInfractionPOA{
 	

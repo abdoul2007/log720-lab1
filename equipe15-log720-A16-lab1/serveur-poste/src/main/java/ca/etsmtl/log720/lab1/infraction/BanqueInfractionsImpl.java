@@ -1,4 +1,10 @@
-package ca.etsmtl.log720.lab1;
+package ca.etsmtl.log720.lab1.infraction;
+
+import ca.etsmtl.log720.lab1.BanqueInfractionsPOA;
+import ca.etsmtl.log720.lab1.CollectionInfraction;
+import ca.etsmtl.log720.lab1.Dossier;
+import ca.etsmtl.log720.lab1.Infraction;
+import ca.etsmtl.log720.lab1.NiveauHorsBornesException;
 
 public class BanqueInfractionsImpl extends BanqueInfractionsPOA{
 	private CollectionInfractionsImpl collectionInfractions;

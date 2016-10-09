@@ -1,5 +1,8 @@
-package ca.etsmtl.log720.lab1;
+package ca.etsmtl.log720.lab1.dossier;
 import java.util.ArrayList;
+
+import ca.etsmtl.log720.lab1.CollectionDossierPOA;
+import ca.etsmtl.log720.lab1.Dossier;
 
 public class CollectionDossiersImpl extends CollectionDossierPOA{
 	

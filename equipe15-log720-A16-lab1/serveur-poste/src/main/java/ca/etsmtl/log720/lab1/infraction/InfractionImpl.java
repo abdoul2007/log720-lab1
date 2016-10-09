@@ -1,4 +1,6 @@
-package ca.etsmtl.log720.lab1;
+package ca.etsmtl.log720.lab1.infraction;
+
+import ca.etsmtl.log720.lab1.InfractionPOA;
 
 public class InfractionImpl extends InfractionPOA{
 	private int id;

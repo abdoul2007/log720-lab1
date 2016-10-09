@@ -1,6 +1,13 @@
-package ca.etsmtl.log720.lab1;
+package ca.etsmtl.log720.lab1.dossier;
 
 import org.omg.PortableServer.POA;
+
+import ca.etsmtl.log720.lab1.BanqueDossiersPOA;
+import ca.etsmtl.log720.lab1.CollectionDossier;
+import ca.etsmtl.log720.lab1.CollectionDossierHelper;
+import ca.etsmtl.log720.lab1.Dossier;
+import ca.etsmtl.log720.lab1.InvalidIdException;
+import ca.etsmtl.log720.lab1.NoPermisExisteDejaException;
 
 public class BanqueDossiersImpl extends BanqueDossiersPOA{
 	
@@ -14,7 +21,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA{
 		// TODO Auto-generated method stub
 		try {
 			// Recuperer le POA cree dans le serveur
-			POA rootpoa = Serveur_Poste._poa;
+			POA rootpoa = Serveur_Dossier._poa;
 
 			// Activer l'objet et retourne l'objet CORBA
 			org.omg.CORBA.Object obj = rootpoa
@@ -27,7 +34,6 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA{
 			System.out.println("Erreur retour de l'objet CollectionDossier : "	+ e);
 			return null;
 		}
-		//return (CollectionDossier) this.collectionDossiers;
 	}
 
 	public CollectionDossier trouverDossiersParPlaque(String plaque) {
