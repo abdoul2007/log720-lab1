@@ -1,64 +1,82 @@
 package ca.etsmtl.log720.lab1;
 
-import java.util.ArrayList;
+import org.omg.PortableServer.POA;
 
 public class BanqueDossiersImpl extends BanqueDossiersPOA{
 	
-	private ArrayList<CollectionDossiersImpl> dossiers;
-	
+	private CollectionDossiersImpl collectionDossiers;	
 	
 	public BanqueDossiersImpl() {
-		this.dossiers = new ArrayList<CollectionDossiersImpl>();
+		this.collectionDossiers = new CollectionDossiersImpl();
 	}
 
 	public CollectionDossier dossiers() {
 		// TODO Auto-generated method stub
-		return (CollectionDossier) this.dossiers;
+		try {
+			// Recuperer le POA cree dans le serveur
+			POA rootpoa = Serveur_Poste._poa;
+
+			// Activer l'objet et retourne l'objet CORBA
+			org.omg.CORBA.Object obj = rootpoa
+					.servant_to_reference(collectionDossiers);
+
+			// Retourner une Collection d'etudiant
+			return CollectionDossierHelper.narrow(obj);
+			
+		} catch (Exception e) {
+			System.out.println("Erreur retour de l'objet CollectionDossier : "	+ e);
+			return null;
+		}
+		//return (CollectionDossier) this.collectionDossiers;
 	}
 
 	public CollectionDossier trouverDossiersParPlaque(String plaque) {
-		CollectionDossier collectionDossier = null;
+		CollectionDossiersImpl collectionD = null;
 		int i = 0;
-		while(i <= dossiers.size()){
-			if(dossiers.get(i).getDossier(i).noPlaque().equals(plaque)){
-				collectionDossier = (CollectionDossier) dossiers.get(i);	
+		while(i <= collectionDossiers.size()){
+			if(collectionDossiers.getDossier(i).noPlaque().equals(plaque)){
+				collectionD = collectionDossiers;	
 			}
 			i++;
 		}
-		return collectionDossier;
+		return (CollectionDossier) collectionD;
 	}
 
 	public CollectionDossier trouverDossiersParNom(String nom, String prenom) {
-		CollectionDossier collectionDossier = null;
+		CollectionDossiersImpl collectionD = null;
 		int i = 0;
-		while(i <= dossiers.size()){
-			if((dossiers.get(i).getDossier(i).nom().equals(nom)) && 
-					(dossiers.get(i).getDossier(i).prenom().equals(prenom))){
-				collectionDossier = (CollectionDossier) dossiers.get(i);	
+		while(i <= collectionDossiers.size()){
+			if((collectionDossiers.getDossier(i).nom().equals(nom)) && 
+					(collectionDossiers.getDossier(i).prenom().equals(prenom))){
+				collectionD = collectionDossiers;	
 			}
 			i++;
 		}
-		return collectionDossier;
+		return (CollectionDossier) collectionD;
 	}
 
 	public Dossier trouverDossierParPermis(String noPermis) {
-		Dossier dossier = null;
+		DossierImpl dossier = null;
 		int i = 0;
-		while(i <= dossiers.size()){
-			if(dossiers.get(i).getDossier(i).noPermis().equals(noPermis)){
-				dossier = dossiers.get(i).getDossier(i);	
+		int pos = -1;
+		while((i <= collectionDossiers.size())&& (pos==-1)){
+			if(collectionDossiers.getDossier(i).noPermis().equals(noPermis)){
+				dossier = (DossierImpl) collectionDossiers.getDossier(i);
+				pos=i;
 			}
 			i++;
 		}
-		return dossier;
+		return (Dossier) dossier;
 	}
 
 	public Dossier trouverDossierParId(int idDossier) {
 		Dossier dossier = null;
 		int i = 0;
-		while(i <= dossiers.size()){
-			if(dossiers.get(i).getDossier(i).id()==idDossier){
-				dossier = dossiers.get(i).getDossier(i);	
+		int pos = -1;
+		while((i <= collectionDossiers.size())&& (pos==-1)){
+			if(collectionDossiers.getDossier(i).id()==idDossier){
+				dossier = collectionDossiers.getDossier(i);	
+				pos=i;
 			}
 			i++;
 		}
@@ -67,30 +85,31 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA{
 
 	public void ajouterDossier(String nom, String prenom, String noPermis, String noPlaque)
 			throws NoPermisExisteDejaException {
-		DossierImpl dossier= new DossierImpl(nom, prenom, noPermis, noPlaque);	
-		
-		try {
-			for(int i=0; i<= dossiers.size(); i++){
-				if(dossiers.get(i).equals(null)){
-					//dossiers.get(i).
-				}
-				
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+		DossierImpl dossier= new DossierImpl(nom, prenom, noPermis, noPlaque);
+		if(trouverDossierParPermis(noPermis) != null){
+			throw new NoPermisExisteDejaException();
+		}else{
+			this.collectionDossiers.dossier().add(dossier);
 		}
-		
 	}
-
+	
 	public void ajouterInfractionAuDossier(int idDossier, int idInfraction) throws InvalidIdException {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
+		try {
+			this.collectionDossiers.getDossier(idDossier).ajouterInfractionAListe(idInfraction);			
+		} catch (Exception e) {
+			throw new InvalidIdException();
+		}
 	}
 
 	public void ajouterReactionAuDossier(int idDossier, int idReaction) throws InvalidIdException {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
+		try {
+			this.collectionDossiers.getDossier(idDossier).ajouterReactionAListe(idReaction);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new InvalidIdException();
+		}
 	}
 
 }

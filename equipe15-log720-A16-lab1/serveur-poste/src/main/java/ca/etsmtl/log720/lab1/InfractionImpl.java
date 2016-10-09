@@ -5,6 +5,12 @@ public class InfractionImpl extends InfractionPOA{
     private String description;
     private int niveauGravite;
     
+	public InfractionImpl(String description, int niveauGravite) {
+		this.id = id++;
+		this.description = description;
+		this.niveauGravite = niveauGravite;
+	}
+
 	public int id() {
 		// TODO Auto-generated method stub
 		return id;
