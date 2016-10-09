@@ -1,9 +1,9 @@
-package ca.etsmtl.log720.lab1;
+package ca.etsmtl.log720.lab1.dossier;
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
-public class Serveur_Poste {
+public class Serveur_Dossier {
 	protected static org.omg.PortableServer.POA _poa;
 	
 	public static void main(String[] args) {
@@ -27,9 +27,9 @@ public class Serveur_Poste {
 			NamingContextExt nc = NamingContextExtHelper.narrow(orb
 					.resolve_initial_references("NameService"));
 			
-			NameComponent[] name = new NameComponent[] { new NameComponent(
+			NameComponent[] nameDossier = new NameComponent[] { new NameComponent(
 					"BanqueDossiers", "service") };
-			nc.rebind(name, o);
+			nc.rebind(nameDossier, o);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

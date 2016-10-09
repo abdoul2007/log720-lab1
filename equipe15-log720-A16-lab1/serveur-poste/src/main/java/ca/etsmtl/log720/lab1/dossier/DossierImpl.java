@@ -1,4 +1,6 @@
-package ca.etsmtl.log720.lab1;
+package ca.etsmtl.log720.lab1.dossier;
+
+import ca.etsmtl.log720.lab1.DossierPOA;
 
 public class DossierImpl extends DossierPOA{
 	final int NB_MAX = 100;
