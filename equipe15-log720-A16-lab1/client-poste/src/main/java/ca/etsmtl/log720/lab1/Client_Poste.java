@@ -24,17 +24,21 @@ public class Client_Poste {
 			BanqueDossiers banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
 			BanqueInfractions banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
 			
-			boolean rep = true;
+			// Ajout d'un dossier
+						banqueDossiers.ajouterDossier("Soumahoro", "Abdoul Aziz", "A13221", "G25Y14");
+						Dossier dossier = banqueDossiers.trouverDossierParPermis("A13221");
+						System.out.println("Contenu Dossier: "+ dossier.id()+ dossier.nom()+ dossier.prenom()+
+								dossier.noPermis()+ dossier.noPlaque());
+			/*boolean rep = true;
 			do{
 				System.out.println("Que voulez-vous faire ? :");
 				System.out.println("1. Ajouter des dossiers dans la banque de dossiers ? :");
 				System.out.println("2. Ajouter des infractions dans la banque d'infractions ? :");
 				System.out.println("3. Visualiser une liste des dossiers compris dans la banque de dossiers ? :");
 				System.out.println("4. Visualiser une liste des infractions comprises dans la banque d'infractions ? :");
-				int valeurChoisie;
 				Scanner scanIn = new Scanner(System.in);
-				valeurChoisie = scanIn.nextInt();				
-			}while( rep = false);
+				int valeurChoisie = scanIn.nextInt();				
+			}while( rep = false);8*/
 		
 		} catch (Exception e) {
 			e.printStackTrace();
