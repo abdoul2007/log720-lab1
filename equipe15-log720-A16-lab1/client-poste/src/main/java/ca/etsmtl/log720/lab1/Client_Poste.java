@@ -1,6 +1,10 @@
 package ca.etsmtl.log720.lab1;
 
+import java.io.ObjectInputStream.GetField;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.crypto.spec.DESedeKeySpec;
 
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextExt;
@@ -27,8 +31,14 @@ public class Client_Poste {
 			
 			// Ajout d'un dossier
 			System.out.println("debut ajout") ;
-			banqueDossiers.ajouterDossier("Soumahoro", "Abdoul Aziz", "A13221", "G25Y14");
+			banqueDossiers.ajouterDossier("Anouar", "Lazrak", "A13221", "G25Y14");
 			System.out.println("fin ajout") ;
+			System.out.println("\n");
+			
+			System.out.println("Affichage de l objet serialiser");
+			
+			//banqueDossiers.dossiers().getDossier(1).toString();
+			
 			/*Dossier dossier = banqueDossiers.trouverDossierParPermis("A13221");
 			System.out.println("Contenu Dossier: "+ dossier.id()+ dossier.nom()+ dossier.prenom()+
 					dossier.noPermis()+ dossier.noPlaque());*/

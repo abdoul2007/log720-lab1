@@ -1,11 +1,16 @@
 package ca.etsmtl.log720.lab1.dossier;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ca.etsmtl.log720.lab1.CollectionDossierPOA;
 import ca.etsmtl.log720.lab1.Dossier;
 
-public class CollectionDossiersImpl extends CollectionDossierPOA{
+public class CollectionDossiersImpl extends CollectionDossierPOA implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8153106587767302112L;
 	private int size;
 	private ArrayList<DossierImpl> dossiers;
 	
@@ -26,5 +31,15 @@ public class CollectionDossiersImpl extends CollectionDossierPOA{
 	public ArrayList<DossierImpl> dossier() {
 		// TODO Auto-generated method stub
 		return this.dossiers;
+	}
+	
+	public void setListDossier(ArrayList<DossierImpl> newList){
+		this.dossiers = newList;
+	}
+	
+	public void listerDossier(){
+		for (DossierImpl dossier : dossiers) {
+			dossier.toString();
+		}
 	}
 }
