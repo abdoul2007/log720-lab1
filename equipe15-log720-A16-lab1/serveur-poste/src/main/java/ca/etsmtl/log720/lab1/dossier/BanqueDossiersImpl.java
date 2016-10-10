@@ -1,5 +1,14 @@
 package ca.etsmtl.log720.lab1.dossier;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import org.omg.PortableServer.POA;
 
 import ca.etsmtl.log720.lab1.BanqueDossiersPOA;
@@ -9,9 +18,14 @@ import ca.etsmtl.log720.lab1.Dossier;
 import ca.etsmtl.log720.lab1.InvalidIdException;
 import ca.etsmtl.log720.lab1.NoPermisExisteDejaException;
 
-public class BanqueDossiersImpl extends BanqueDossiersPOA{
+public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2952740905007213865L;
 	private CollectionDossiersImpl collectionDossiers;	
+	File fichier =  new File("tmp/marin.ser") ;
 	
 	public BanqueDossiersImpl() {
 		this.collectionDossiers = new CollectionDossiersImpl();
@@ -96,6 +110,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA{
 			throw new NoPermisExisteDejaException();
 		}else{
 			this.collectionDossiers.dossier().add(dossier);
+			serialiser(dossier);
 		}
 	}
 	
@@ -116,6 +131,35 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA{
 			// TODO: handle exception
 			throw new InvalidIdException();
 		}
+	}
+	
+	public void serialiser(DossierImpl dossier){
+		 // on simplifie le code en retirant la gestion des exceptions
+		
+		try {
+			System.out.println("DOSSIER SERIALISE avant????") ;
+		 // ouverture d'un flux sur un fichier
+		ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier)) ;
+		 // sérialization de l'objet		
+			oos.writeObject(dossier) ;
+			System.out.println("DOSSIER SERIALISE apres????") ;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public void deserialiser(DossierImpl dossier){
+		// ouverture d'un flux sur un fichier
+		try {
+			ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 // désérialization de l'objet
+		System.out.println(dossier) ;
 	}
 
 }

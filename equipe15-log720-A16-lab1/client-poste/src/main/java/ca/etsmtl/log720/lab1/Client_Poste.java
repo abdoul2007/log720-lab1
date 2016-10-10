@@ -1,6 +1,7 @@
 package ca.etsmtl.log720.lab1;
 
 import java.util.Scanner;
+
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
@@ -14,21 +15,23 @@ public class Client_Poste {
 			// get hold of the naming service
 			NamingContextExt nc = NamingContextExtHelper.narrow(orb
 					.resolve_initial_references("NameService"));
-
+			
 			NameComponent[] nameDossier = new NameComponent[] { new NameComponent(
-					"BanqueDossier", "service") };
-			NameComponent[] nameInfraction = new NameComponent[] { new NameComponent(
-					"BanqueInfraction", "service") };
+					"BanqueDossiers", "service") };		
+			/*NameComponent[] nameInfraction = new NameComponent[] { new NameComponent(
+					"BanqueInfraction", "service") };*/
 
 			// resolve name to get a reference to our server
 			BanqueDossiers banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
-			BanqueInfractions banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
+			//BanqueInfractions banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
 			
 			// Ajout d'un dossier
-						banqueDossiers.ajouterDossier("Soumahoro", "Abdoul Aziz", "A13221", "G25Y14");
-						Dossier dossier = banqueDossiers.trouverDossierParPermis("A13221");
-						System.out.println("Contenu Dossier: "+ dossier.id()+ dossier.nom()+ dossier.prenom()+
-								dossier.noPermis()+ dossier.noPlaque());
+			System.out.println("debut ajout") ;
+			banqueDossiers.ajouterDossier("Soumahoro", "Abdoul Aziz", "A13221", "G25Y14");
+			System.out.println("fin ajout") ;
+			/*Dossier dossier = banqueDossiers.trouverDossierParPermis("A13221");
+			System.out.println("Contenu Dossier: "+ dossier.id()+ dossier.nom()+ dossier.prenom()+
+					dossier.noPermis()+ dossier.noPlaque());*/
 			/*boolean rep = true;
 			do{
 				System.out.println("Que voulez-vous faire ? :");

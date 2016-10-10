@@ -60,11 +60,12 @@ public class ClientVoiture{
 
 				switch (key) {
 				case 1:
-					reactions.reactions().toString();
+					System.out.println(reactions.reactions().getReaction(1).toString());
 					break;
 
 				case 2:
 					reactions.ajouterReaction("reaction1", 3);
+					System.out.println("================ AJOUT REACTION ================");
 					break;
 
 				case 3:
