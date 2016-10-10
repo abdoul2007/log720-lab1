@@ -5,13 +5,14 @@ import ca.etsmtl.log720.lab1.ReactionPOA;
 public class ReactionImpl extends ReactionPOA{
 	
 	private int _id;
-	private String _description;
+	private String _descriptionReaction;
 	private int _niveauGravite;
 
 	
-	public ReactionImpl(String descriptionReaction, int niveauGravite) {
+	public ReactionImpl(int id ,String descriptionReaction, int niveauGravite) {
+		_id = id; 
 		_niveauGravite = niveauGravite;
-		_description = descriptionReaction;
+		_descriptionReaction = descriptionReaction;
 	}
 	
 	
@@ -20,17 +21,16 @@ public class ReactionImpl extends ReactionPOA{
 	}
 
 	public String description() {
-		return _description;
+		return _descriptionReaction;
 	}
 
 	public int niveau() {
 		return _niveauGravite;
 	}
 
+
 	public String _toString() {
-		return (_id + " - " + _description + " - " + _niveauGravite);
+		return (_id + " - " + _descriptionReaction + " - " + _niveauGravite);
 	}
-
-
 	
 }
