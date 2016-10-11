@@ -11,7 +11,6 @@ public class CollectionInfractionsImpl extends CollectionInfractionPOA{
 	private int size;
 	
 	public CollectionInfractionsImpl() {
-		super();
 		// TODO Auto-generated constructor stub
 		infractions = new ArrayList<InfractionImpl>();
 		this.size = infractions.size();
@@ -24,7 +23,8 @@ public class CollectionInfractionsImpl extends CollectionInfractionPOA{
 	
 	public int size() {
 		// TODO Auto-generated method stub
-		return this.size;
+		size = infractions.size(); 
+		return size;
 	}
 	public ArrayList<InfractionImpl> infraction() {
 		// TODO Auto-generated method stub

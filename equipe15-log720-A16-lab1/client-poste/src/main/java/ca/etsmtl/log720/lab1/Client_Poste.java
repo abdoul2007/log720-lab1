@@ -1,6 +1,5 @@
 package ca.etsmtl.log720.lab1;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,6 +10,8 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
 public class Client_Poste {
+	static BanqueDossiers banqueDossiers;
+	static BanqueInfractions banqueInfractions;
 
 	public static void main(String[] args) {
 		try {
@@ -22,26 +23,24 @@ public class Client_Poste {
 			
 			NameComponent[] nameDossier = new NameComponent[] { new NameComponent(
 					"BanqueDossiers", "service") };		
-			/*NameComponent[] nameInfraction = new NameComponent[] { new NameComponent(
-					"BanqueInfraction", "service") };*/
+			NameComponent[] nameInfraction = new NameComponent[] { new NameComponent(
+					"BanqueInfraction", "service") };
 
 			// resolve name to get a reference to our server
-			BanqueDossiers banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
-			//BanqueInfractions banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
+			banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
+			banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
 			
 			// Ajout d'un dossier
 			System.out.println("debut ajout") ;
 			banqueDossiers.ajouterDossier("Anouar", "Lazrak", "A13221", "G25Y14");
+			banqueDossiers.ajouterDossier("Abdoul", "Aziz", "G33Q78", "R65J20");
 			System.out.println("fin ajout") ;
 			System.out.println("\n");
 			
-			System.out.println("Affichage de l objet serialiser");
+			System.out.println("Affichage de l'objet serialiser");
 			
-			//banqueDossiers.dossiers().getDossier(1).toString();
+			visualiserListeDossier();
 			
-			/*Dossier dossier = banqueDossiers.trouverDossierParPermis("A13221");
-			System.out.println("Contenu Dossier: "+ dossier.id()+ dossier.nom()+ dossier.prenom()+
-					dossier.noPermis()+ dossier.noPlaque());*/
 			/*boolean rep = true;
 			do{
 				System.out.println("Que voulez-vous faire ? :");
@@ -50,11 +49,52 @@ public class Client_Poste {
 				System.out.println("3. Visualiser une liste des dossiers compris dans la banque de dossiers ? :");
 				System.out.println("4. Visualiser une liste des infractions comprises dans la banque d'infractions ? :");
 				Scanner scanIn = new Scanner(System.in);
-				int valeurChoisie = scanIn.nextInt();				
-			}while( rep = false);8*/
+				int valeurChoisie = scanIn.nextInt();
+				switch (va) {
+				case value:
+					
+					break;
+
+				default:
+					break;
+				}
+			}while( rep = false);*/
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void ajoutDossier(String nom, String prenom, String noPermis, String noPlaque){
+		try {
+			banqueDossiers.ajouterDossier(nom, prenom, noPermis, noPlaque);
+		} catch (NoPermisExisteDejaException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void ajoutInfraction(String description, int niveau){
+		try {
+			banqueInfractions.ajouterInfraction(description, niveau);
+		} catch (NiveauHorsBornesException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void visualiserListeDossier(){
+		CollectionDossier collectionD = banqueDossiers.dossiers();
+		// Attention: size() est une fonction implementee dans la classe CollectionDossierImpl
+		for(int i=0; i<=collectionD.size(); i++){
+			collectionD.getDossier(i)._toString();
+		}
+	}
+	
+	public static void visualiserListeInfraction(){
+		CollectionInfraction collectionI = banqueInfractions.infractions();
+		// Attention: size() est une fonction implementee dans la classe CollectionInfractionImpl
+		for(int i=0; i<=collectionI.size(); i++){
+			collectionI.getInfraction(i)._toString();
+		}
+	}
+	
 }
