@@ -108,9 +108,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 			throws NoPermisExisteDejaException {
 		DossierImpl dossier= new DossierImpl(nom, prenom, noPermis, noPlaque);
 		
-		if(!collectionDossiers.dossier().isEmpty()){
-			deserialiser();
-		}
+		deserialiser();
 		collectionDossiers.dossier().add(dossier);
 		serialiser(collectionDossiers);
 	}
@@ -168,11 +166,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 			FileInputStream fis = new FileInputStream(fichier);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			listDossiers = (ArrayList<DossierImpl>) ois.readObject();
-			for(int i=0; i<=listDossiers.size(); i++){
-				collectionDossiers.dossier().add(listDossiers.get(i));
-				
-			}
-			//collectionDossiers.setListDossier(listDossiers);
+			collectionDossiers.setListDossier(listDossiers);
 			ois.close();
 			fis.close();
 		}catch(IOException ioe){
