@@ -23,10 +23,11 @@ public class CollectionDossiersImpl extends CollectionDossierPOA implements Seri
 		// TODO Auto-generated method stub
 		return (Dossier) this.dossiers.get(index);
 	}
-
+	
 	public int size() {
 		// TODO Auto-generated method stub
-		return this.size;
+		size = this.dossiers.size();
+		return size;
 	}
 	public ArrayList<DossierImpl> dossier() {
 		// TODO Auto-generated method stub

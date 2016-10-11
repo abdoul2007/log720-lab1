@@ -30,6 +30,8 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 
 	public BanqueDossiersImpl() {
 		this.collectionDossiers = new CollectionDossiersImpl();
+		deserialiser();
+		collectionDossiers.setListDossier(deserialiser());
 	}
 
 	public CollectionDossier dossiers() {
@@ -65,6 +67,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 
 	public CollectionDossier trouverDossiersParNom(String nom, String prenom) {
 		CollectionDossiersImpl collectionD = null;
+		deserialiser();
 		int i = 0;
 		while(i <= collectionDossiers.size()){
 			if((collectionDossiers.getDossier(i).nom().equals(nom)) && 
@@ -159,14 +162,14 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 	}
 
 	@SuppressWarnings("unchecked")
-	public void deserialiser(){
+	public ArrayList<DossierImpl> deserialiser(){
 		ArrayList<DossierImpl> listDossiers= new ArrayList<DossierImpl>();
 		try
 		{
 			FileInputStream fis = new FileInputStream(fichier);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			listDossiers = (ArrayList<DossierImpl>) ois.readObject();
-			collectionDossiers.setListDossier(listDossiers);
+			//collectionDossiers.setListDossier(listDossiers);
 			ois.close();
 			fis.close();
 		}catch(IOException ioe){
@@ -175,6 +178,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 			System.out.println("Class not found");
 			c.printStackTrace();
 		}
+		return listDossiers;
 
 	}
 
