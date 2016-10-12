@@ -1,9 +1,6 @@
 package ca.etsmtl.log720.lab1;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.crypto.spec.DESedeKeySpec;
 
 import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextExt;
@@ -12,7 +9,7 @@ import org.omg.CosNaming.NamingContextExtHelper;
 public class Client_Poste {
 	static BanqueDossiers banqueDossiers;
 	static BanqueInfractions banqueInfractions;
-
+	public static Scanner sc = null;
 	public static void main(String[] args) {
 		try {
 			org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
@@ -32,66 +29,109 @@ public class Client_Poste {
 				// resolve name to get a reference to our server
 				banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
 				//banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
-			}
-			
-			// Ajout d'un dossier
-			System.out.println("debut ajout") ;
-			banqueDossiers.ajouterDossier("Anouar", "Lazrak", "A13221", "G25Y14");
-			banqueDossiers.ajouterDossier("Abdoul", "Aziz", "G33Q78", "R65J20");
-			System.out.println("fin ajout") ;
-			System.out.println("\n");
-			
-			System.out.println("Affichage de l'objet serialiser");
-			
-			visualiserListeDossier();
-			
-			/*boolean rep = true;
-			do{
-				System.out.println("Que voulez-vous faire ? :");
-				System.out.println("1. Ajouter des dossiers dans la banque de dossiers ? :");
-				System.out.println("2. Ajouter des infractions dans la banque d'infractions ? :");
-				System.out.println("3. Visualiser une liste des dossiers compris dans la banque de dossiers ? :");
-				System.out.println("4. Visualiser une liste des infractions comprises dans la banque d'infractions ? :");
-				Scanner scanIn = new Scanner(System.in);
-				int valeurChoisie = scanIn.nextInt();
-				switch (va) {
-				case value:
-					
-					break;
-
-				default:
-					break;
-				}
-			}while( rep = false);*/
-		
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		sc = new Scanner(System.in);
+		int optionChoisi=0;
+		boolean reponse=false;
+		do{
+			optionChoisi=afficherMenu();
+			switch(optionChoisi){
+				case 1:
+					ajoutDossier();
+					break;
+				case 2:
+					ajoutInfraction();
+					break;
+				case 3:
+					visualiserListeDossier();
+					break;
+				case 4:
+					visualiserListeInfraction();
+					break;
+				case 5:
+					reponse=quitter();
+				break;					
+			}
+		}while(reponse==false); // On quitte le main lorsque la fonction quitter retournera true;
+		System.out.println("Au revoir!");
+		sc.close();	
 	}
 	
-	public static void ajoutDossier(String nom, String prenom, String noPermis, String noPlaque){
+	public static int afficherMenu() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("**********************************************************************************");
+		
+		System.out.println("* "+"Choisissez une des options suivantes :"+"                                         *");
+		System.out.println("* "+"1) "+"Ajouter des dossiers dans la banque de dossiers"+"                             *");
+		System.out.println("* "+"2) "+"Ajouter des infractions dans la banque d'infractions"+"                        *");
+		System.out.println("* "+"3) "+"Visualiser une liste des dossiers compris dans la banque de dossiers"+"        *");
+		System.out.println("* "+"4) "+"Visualiser une liste des infractions comprises dans la banque d'infractions"+" *");
+		System.out.println("* "+"5) "+"Quitter"+"                                                                     *");
+		
+		System.out.println("**********************************************************************************");		
+		int optionMenu=sc.nextInt();
+		sc.nextLine();	
+		return optionMenu;
+	}
+	public static Boolean quitter() {
+		char reponse;
+		do{
+			System.out.println("Voulez vous vraiment quitter ? O/N");
+			reponse=sc.nextLine().charAt(0);
+			
+			while(reponse!='O'&&reponse!='N'){
+				System.out.println("Erreur: Vous devez saisir O ou N en majuscule");
+				reponse=sc.nextLine().charAt(0);
+			}
+				
+		}while(reponse!='O'&&reponse!='N');
+		if(reponse=='O')
+			return true;
+		else{return false;}
+	
+	}
+	public static void ajoutDossier(){
+		Scanner scanIn = new Scanner(System.in);
 		try {
+			System.out.println("entrer le nom:");
+			String nom = scanIn.next();
+			System.out.println("entrer le prenom:");
+			String prenom = scanIn.next();
+			System.out.println("entrer le numero Permis:");
+			String noPermis = scanIn.next();
+			System.out.println("entrer le numero plaque:");
+			String noPlaque = scanIn.next();
 			banqueDossiers.ajouterDossier(nom, prenom, noPermis, noPlaque);
 		} catch (NoPermisExisteDejaException e) {
 			e.printStackTrace();
 		}
+		scanIn.close();
 	}
 	
-	public static void ajoutInfraction(String description, int niveau){
+	public static void ajoutInfraction(){
+		Scanner scanIn = new Scanner(System.in);
 		try {
+			System.out.println("entrer la description:");
+			String description = scanIn.next();
+			System.out.println("entrer le niveau:");
+			int niveau = scanIn.nextInt();
 			banqueInfractions.ajouterInfraction(description, niveau);
 		} catch (NiveauHorsBornesException e) {
 			e.printStackTrace();
 		}
+		scanIn.close();
 	}
 	
 	public static void visualiserListeDossier(){
 		CollectionDossier collectionD = banqueDossiers.dossiers();
 		// Attention: size() est une fonction implementee dans la classe CollectionDossierImpl
-		for(int i = 0; i<collectionD.size(); i++){
-			System.out.println(collectionD.getDossier(i)._toString());
+		for(int i=0; i<=collectionD.size(); i++){
+			collectionD.getDossier(i)._toString();
 		}
-		
 	}
 	
 	public static void visualiserListeInfraction(){
