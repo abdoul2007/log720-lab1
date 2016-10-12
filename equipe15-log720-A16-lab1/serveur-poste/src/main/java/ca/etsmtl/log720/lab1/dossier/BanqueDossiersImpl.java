@@ -25,13 +25,11 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 	 * 
 	 */
 	private static final long serialVersionUID = -2952740905007213865L;
-	private CollectionDossiersImpl collectionDossiers;	
+	private static CollectionDossiersImpl collectionDossiers;	
 	File fichier =  new File("../../dossier.ser");
 
 	public BanqueDossiersImpl() {
 		this.collectionDossiers = new CollectionDossiersImpl();
-		deserialiser();
-		collectionDossiers.setListDossier(deserialiser());
 	}
 
 	public CollectionDossier dossiers() {
@@ -39,7 +37,10 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 		try {
 			// Recuperer le POA cree dans le serveur
 			POA rootpoa = Serveur_Dossier._poa;
-
+			
+			//Mettre à jour la liste des dossier dans la memoire
+			fileToMemory();
+			
 			// Activer l'objet et retourne l'objet CORBA
 			org.omg.CORBA.Object obj = rootpoa
 					.servant_to_reference(collectionDossiers);
@@ -58,7 +59,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 		int i = 0;
 		while(i <= collectionDossiers.size()){
 			if(collectionDossiers.getDossier(i).noPlaque().equals(plaque)){
-				collectionD = collectionDossiers;	
+				collectionD = collectionDossiers;
 			}
 			i++;
 		}
@@ -67,7 +68,7 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 
 	public CollectionDossier trouverDossiersParNom(String nom, String prenom) {
 		CollectionDossiersImpl collectionD = null;
-		deserialiser();
+		//deserialiser();
 		int i = 0;
 		while(i <= collectionDossiers.size()){
 			if((collectionDossiers.getDossier(i).nom().equals(nom)) && 
@@ -109,11 +110,10 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 
 	public void ajouterDossier(String nom, String prenom, String noPermis, String noPlaque)
 			throws NoPermisExisteDejaException {
-		DossierImpl dossier= new DossierImpl(nom, prenom, noPermis, noPlaque);
-		
-		deserialiser();
+		DossierImpl dossier = new DossierImpl(nom, prenom, noPermis, noPlaque);
+		fileToMemory();
 		collectionDossiers.dossier().add(dossier);
-		serialiser(collectionDossiers);
+		memoryToFile(collectionDossiers.dossier());
 	}
 
 	/*public void listerDossier(){
@@ -147,12 +147,13 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 		}
 	}
 
-	public void serialiser(CollectionDossiersImpl collectionDossiers){
+	public void serialiser(ArrayList<DossierImpl> listDossiers){
 
 		try{
+			
 			FileOutputStream fos= new FileOutputStream(fichier);
 			ObjectOutputStream oos= new ObjectOutputStream(fos);
-			oos.writeObject(collectionDossiers.dossier());
+			oos.writeObject(listDossiers);
 			oos.close();
 			fos.close();
 		}catch(IOException ioe){
@@ -179,8 +180,20 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 			c.printStackTrace();
 		}
 		return listDossiers;
-
 	}
-
+	
+	//Pour deserialiser
+	public void fileToMemory()
+	{
+		ArrayList<DossierImpl> listDossiers= new ArrayList<DossierImpl>();
+		listDossiers = deserialiser();
+		collectionDossiers.setListDossier(listDossiers);
+	}
+	
+	//Pour serialiser
+	public void memoryToFile(ArrayList<DossierImpl> listDossiers)
+	{
+		serialiser(listDossiers);
+	}
 
 }

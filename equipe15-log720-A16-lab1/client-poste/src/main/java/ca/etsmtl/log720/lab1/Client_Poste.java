@@ -16,19 +16,23 @@ public class Client_Poste {
 	public static void main(String[] args) {
 		try {
 			org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
-
-			// get hold of the naming service
-			NamingContextExt nc = NamingContextExtHelper.narrow(orb
-					.resolve_initial_references("NameService"));
-			
-			NameComponent[] nameDossier = new NameComponent[] { new NameComponent(
-					"BanqueDossiers", "service") };		
-			NameComponent[] nameInfraction = new NameComponent[] { new NameComponent(
-					"BanqueInfraction", "service") };
-
-			// resolve name to get a reference to our server
-			banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
-			banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
+			if(args.length == 1){
+				banqueDossiers = BanqueDossiersHelper.narrow(orb.string_to_object(args[0]));
+			}
+			else{
+				// get hold of the naming service
+				NamingContextExt nc = NamingContextExtHelper.narrow(orb
+						.resolve_initial_references("NameService"));
+				
+				NameComponent[] nameDossier = new NameComponent[] { new NameComponent(
+						"BanqueDossiers", "service") };		
+				NameComponent[] nameInfraction = new NameComponent[] { new NameComponent(
+						"BanqueInfraction", "service") };
+	
+				// resolve name to get a reference to our server
+				banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
+				//banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
+			}
 			
 			// Ajout d'un dossier
 			System.out.println("debut ajout") ;
@@ -84,9 +88,10 @@ public class Client_Poste {
 	public static void visualiserListeDossier(){
 		CollectionDossier collectionD = banqueDossiers.dossiers();
 		// Attention: size() est une fonction implementee dans la classe CollectionDossierImpl
-		for(int i=0; i<=collectionD.size(); i++){
-			collectionD.getDossier(i)._toString();
+		for(int i = 0; i<collectionD.size(); i++){
+			System.out.println(collectionD.getDossier(i)._toString());
 		}
+		
 	}
 	
 	public static void visualiserListeInfraction(){
