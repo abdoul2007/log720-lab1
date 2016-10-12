@@ -25,7 +25,6 @@ public class CollectionDossiersImpl extends CollectionDossierPOA implements Seri
 
 	public Dossier getDossier(int index) {
 		// TODO Auto-generated method stub
-		//return (Dossier) this.dossiers.get(index);
 		try {
 			// Recuperer le POA cree dans le serveur
 			POA rootpoa = Serveur_Dossier._poa;

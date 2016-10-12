@@ -15,6 +15,7 @@ public class Client_Poste {
 			org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 			if(args.length == 1){
 				banqueDossiers = BanqueDossiersHelper.narrow(orb.string_to_object(args[0]));
+				banqueInfractions = BanqueInfractionsHelper.narrow(orb.string_to_object(args[0]));
 			}
 			else{
 				// get hold of the naming service
@@ -24,11 +25,11 @@ public class Client_Poste {
 				NameComponent[] nameDossier = new NameComponent[] { new NameComponent(
 						"BanqueDossiers", "service") };		
 				NameComponent[] nameInfraction = new NameComponent[] { new NameComponent(
-						"BanqueInfraction", "service") };
+						"BanqueInfractions", "service") };
 	
 				// resolve name to get a reference to our server
 				banqueDossiers = BanqueDossiersHelper.narrow(nc.resolve(nameDossier));
-				//banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
+				banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(nameInfraction));
 			}		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,7 +131,7 @@ public class Client_Poste {
 		CollectionDossier collectionD = banqueDossiers.dossiers();
 		// Attention: size() est une fonction implementee dans la classe CollectionDossierImpl
 		for(int i=0; i<=collectionD.size(); i++){
-			collectionD.getDossier(i)._toString();
+			System.out.println(collectionD.getDossier(i)._toString());
 		}
 	}
 	
@@ -138,7 +139,7 @@ public class Client_Poste {
 		CollectionInfraction collectionI = banqueInfractions.infractions();
 		// Attention: size() est une fonction implementee dans la classe CollectionInfractionImpl
 		for(int i=0; i<=collectionI.size(); i++){
-			collectionI.getInfraction(i)._toString();
+			System.out.println(collectionI.getInfraction(i)._toString());
 		}
 	}
 	
