@@ -25,5 +25,6 @@
 		<module>client-poste</module>
 		<module>idl</module>
 		<module>serveur-poste</module>
+		<module>serveur-voiture</module>
 	</modules>
 </project>

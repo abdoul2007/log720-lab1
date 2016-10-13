@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>client-voiture</name>
+	<name>client-poste</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -24,7 +24,7 @@
 		<link>
 			<name>idl</name>
 			<type>2</type>
-			<location>J:/log720_lab/log720-lab1/equipe15-log720-A16-lab1/idl/target/generated-sources/idl</location>
+			<location>C:/Users/ad/Pictures/lab/log720-lab1/equipe15-log720-A16-lab1/idl/target/generated-sources/idl</location>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -108,9 +108,16 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 		return dossier;
 	}
 
-	public void ajouterDossier(String nom, String prenom, String noPermis, String noPlaque)
+/*	public void ajouterDossier(String nom, String prenom, String noPermis, String noPlaque)
 			throws NoPermisExisteDejaException {
 		DossierImpl dossier = new DossierImpl(nom, prenom, noPermis, noPlaque);
+		fileToMemory();
+		collectionDossiers.dossier().add(dossier);
+		memoryToFile(collectionDossiers.dossier());
+	}*/
+	public void ajouterDossier(String nom, String prenom, String noPermis, String noPlaque)
+			throws NoPermisExisteDejaException {
+		DossierImpl dossier = new DossierImpl(collectionDossiers.size()+1, nom, prenom, noPermis, noPlaque);
 		fileToMemory();
 		collectionDossiers.dossier().add(dossier);
 		memoryToFile(collectionDossiers.dossier());

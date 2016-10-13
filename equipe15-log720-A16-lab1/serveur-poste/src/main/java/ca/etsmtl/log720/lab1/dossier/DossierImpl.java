@@ -20,7 +20,8 @@ public class DossierImpl extends DossierPOA implements Serializable{
     private int[] listeReaction;
     
 	
-    public DossierImpl(String nom, String prenom, String noPermis, String noPlaque){
+    public DossierImpl(int id, String nom, String prenom, String noPermis, String noPlaque){
+    	this.id = id; 
 		this.nom = nom;
 		this.noPermis = noPermis;
 		this.noPlaque = noPlaque;
@@ -71,6 +72,13 @@ public class DossierImpl extends DossierPOA implements Serializable{
 		}		
 	}
 	
+	public String afficherReaction(){
+		for (int i = 0; i < listeReaction.length; i++) {
+			return "reaction num : " + listeReaction[i];
+		}
+		return null;
+	}
+	
 	public void ajouterInfractionAListe(int idInfraction) {
 		// TODO Auto-generated method stub
 		int i = 0;
@@ -86,8 +94,9 @@ public class DossierImpl extends DossierPOA implements Serializable{
 	}
 	public String _toString() {
 		// TODO Auto-generated method stub
-		return "id= " + this.id + "nom= " + this.nom + "noPermis= " + 
-		this.noPermis + "noPlaque= " + this.noPlaque + "prenom= " + this.prenom + "niveau= " + this.niveauGravite ;
+		return "========================================================================= \n "
+				+ "id= " + this.id + " nom= " +this.nom+ " prenom= " + this.prenom+"\n"+
+				"Num Permis= " + this.noPermis +" Num Plaque= " + this.noPlaque + " niveau gravite= " + this.niveauGravite;
 	}
 
 }
